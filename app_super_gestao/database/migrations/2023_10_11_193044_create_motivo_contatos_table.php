@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterSiteContatosEmailColumnSize extends Migration
+class CreateMotivoContatosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AlterSiteContatosEmailColumnSize extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('site_contatos', function (Blueprint $table) {
-            $table->string('email', 80)->change();
+        Schema::create('motivo_contatos', function (Blueprint $table) {
+            $table->id();
+            $table->string('motivo_contato', 20);
+            $table->timestamps();
         });
     }
 
@@ -26,9 +27,6 @@ class AlterSiteContatosEmailColumnSize extends Migration
      */
     public function down()
     {
-        //
-        Schema::table('site_contatos', function (Blueprint $table) {
-            $table->string('email', 30)->change();
-        });
+        Schema::dropIfExists('motivo_contatos');
     }
 }
