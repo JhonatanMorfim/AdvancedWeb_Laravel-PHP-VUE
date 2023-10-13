@@ -1,32 +1,29 @@
-<h3> Fornecedor </h3>
+@extends('app.layouts.basico')
 
-@php
+@section('titulo', 'Fornecedor')
+@section('conteudo')
+    <div class="conteudo-pagina">
+        <div class="titulo-pagina-2">
+            <p>Fornecedor</p>
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="{{route('app.fornecedor.adicionar')}}">Novo</a></li>
+                <li><a href="{{route('app.fornecedor')}}">Consulta</a></li>
+            </ul>
+        </div>
+        <div class="informacao-pagina">
+            <div style="width:30%; margin-left: auto; margin-right: auto;">
+                <form method="post" action="{{ route('app.fornecedor.listar')}}">
+                    @csrf
+                    <input type="text" name="nome" placeholder="Nome" class="borda-preta">
+                    <input type="text" name="site" placeholder="Site" class="borda-preta">
+                    <input type="text" name="uf" placeholder="UF"class="borda-preta">
+                    <input type="text" name="email" placeholder="E-mail" class="borda-preta">
+                    <button type="submit" class="borda-preta">Pesquisar</button>
 
-@endphp
-
-@isset($fornecedores)
-    @forelse ($fornecedores as $indíce => $fornecedor)
-        Iteração atual: {{ $loop->iteration}}
-        <br>
-        Fornecedor: {{ $fornecedor['nome']}}
-        <br>
-        Status: {{ $fornecedor['status']}}
-        <br>
-        CNPJ: {{ $fornecedor['cnpj'] ?? 'Dado não foi preenchido'}}
-        <br>
-        Telefone: {{ $fornecedor['ddd'] ?? ''}} {{ $fornecedor['telefone'] ?? ''}}
-        <br>
-        @if($loop->first)
-            Primeira Iteração do Loop
-            <br>
-            Total de registros: {{$loop->count}}
-        @endif
-        @if($loop->last)
-            Última Iteração do Loop
-            
-        @endif
-        <hr>
-    @empty
-        Não existem fornecedores cadastrados
-    @endforelse
-@endisset
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
