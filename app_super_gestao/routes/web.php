@@ -16,27 +16,19 @@ use Illuminate\Support\Facades\Route;
 
 //Principal
 Route::get('/', 'PrincipalController@principal')->name('site.index');
-
 //Sobre-nós
 Route::get('/sobre-nos', 'SobreNosController@sobreNos')->name('site.sobrenos');
-
 //Contato
 Route::get('/contato', 'ContatoController@contato')->name('site.contato');
 Route::post('/contato', 'ContatoController@salvar')->name('site.contato');
-
 //Login App
 Route::get('/login/{erro?}', 'LoginController@index')->name('site.login');
 Route::post('/login', 'LoginController@autenticar')->name('site.login');
 Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function(){
     //Index App Home
     Route::get('/home', 'HomeController@index')->name('app.home');
-
     //Logout Sair
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
-
-    //Cliente
-    Route::get('/cliente', 'ClienteController@index')->name('app.cliente');
-
     //Fornecedor
     Route::get('/fornecedor', 'FornecedorController@index')->name('app.fornecedor');
         Route::post('/fornecedor/listar', 'FornecedorController@listar')->name('app.fornecedor.listar');
@@ -45,11 +37,19 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
         Route::post('/fornecedor/adicionar', 'FornecedorController@adicionar')->name('app.fornecedor.adicionar');
         Route::get('/fornecedor/editar/{id}/{msg?}', 'FornecedorController@editar')->name('app.fornecedor.editar');
         Route::get('/fornecedor/excluir/{id}', 'FornecedorController@excluir')->name('app.fornecedor.excluir');
-
     //Produto
     Route::resource('produto', 'ProdutoController');
-
+    //Produto detalhe
     Route::resource('produto-detalhe', 'ProdutoDetalheController');
+    //Cliente
+    Route::resource('cliente', 'ClienteController');
+    //Pedido
+    Route::resource('pedido', 'PedidoController');
+    //Pedido produto
+    //Route::resource('pedido-produto', 'PedidoProdutoController');
+    Route::get('pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->name('pedido-produto.create');
+    Route::post('pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
+    Route::delete('pedido-produto/store/{pedidoProduto}/{pedido_id}', 'PedidoProdutoController@destroy')->name('pedido-produto.destroy');
         
 });
 
